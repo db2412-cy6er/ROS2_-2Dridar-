@@ -1,5 +1,7 @@
 # ROS2 2D-Lidar 语义导航小车（Leap 系列）
 
+本项目基于出云科技的ROS2小车进行开发
+项目地址https://github.com/czu963889306-dev/leap_ros_ws
 本仓库是一个 **monorepo**，把整车相关的四棵目录树放在一起：
 
 | 目录 | 内容 |

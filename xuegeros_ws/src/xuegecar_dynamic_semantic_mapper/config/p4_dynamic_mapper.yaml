@@ -1,0 +1,44 @@
+dynamic_semantic_mapper:
+  ros__parameters:
+
+    input_topic: "/semantic/objects_localized"
+    camera_info_topic: "/camera/camera_info"
+    dynamic_map_topic: "/semantic/dynamic_map"
+    marker_topic: "/semantic/dynamic_markers"
+    event_topic: "/semantic/events"
+
+    map_frame: "map"
+    robot_frame: "base_footprint"
+
+    # 跨帧同类别目标的关联门限(m)。0.15 兼顾"同一瓶子不分裂成两条"
+    # 与"两个相距 20cm 的瓶子不被合并"（单目地面交点测距在 2m 处约 7cm/像素，
+    # 门限过大会把并排/前后两个瓶子合成一个，门限过小会让同一瓶子分裂）。
+    association_distance: 0.15
+    # 同一帧内的同类别去重门限(m)：同一帧里 YOLO 的两个框就是两个物体，
+    # 用很小的门限即可（NMS 已经把同一物体的重复框压掉了）。
+    same_frame_dedupe_distance: 0.05
+    # 新观测对历史坐标的 EMA 更新比例(每次融合的权重)
+    position_alpha: 0.35
+    # 连续 hit 多少帧才确认 (tentative -> confirmed -> ADD)
+    min_hits: 3
+    # confirmed 目标：在有效视野内连续未检测多少帧删除
+    delete_misses: 8
+    # tentative 假目标允许的 miss 次数
+    tentative_delete_misses: 3
+    # 从未确认的目标超过该时长未再见则清理(出视野也清，防无限累积)
+    tentative_max_age_s: 30.0
+
+    min_confidence: 0.30
+
+    # camera_info 未到时回退水平视场(度)
+    fallback_hfov_deg: 82.0
+    # 判定可见只使用中央 80% 水平视场
+    visibility_fov_scale: 0.80
+    # 只有 [min,max] 距离内的未检测才算 miss
+    min_visibility_distance: 0.25
+    max_visibility_distance: 2.50
+    # 相机朝向相对 base_footprint 前向的 yaw 偏置(度)
+    camera_yaw_offset_deg: 0.0
+
+    publish_rate: 5.0
+    snapshot_file: "/home/chuyun/xuegeros_ws/maps/p4_dynamic_snapshot.json"

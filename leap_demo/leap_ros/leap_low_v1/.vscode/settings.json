@@ -1,0 +1,23 @@
+{
+  "idf.currentSetup": "/home/xuegeros/esp/esp-idf",
+  "idf.customExtraVars": {
+    "IDF_PATH": "/home/xuegeros/esp/esp-idf",
+    "IDF_TOOLS_PATH": "/home/xuegeros/.espressif",
+    "IDF_PYTHON_ENV_PATH": "/home/xuegeros/.espressif/python_env/idf5.5_py3.10_env"
+  },
+  "idf.flashType": "UART",
+  "idf.port": "/dev/ttyUSB0",
+  "python.analysis.exclude": [
+    "**/build/**",
+    "**/managed_components/**",
+    "**/third_party/**"
+  ],
+  "search.exclude": {
+    "**/build": true,
+    "**/managed_components": true,
+    "**/third_party": true
+  },
+  "files.exclude": {
+    "**/.DS_Store": true
+  }
+}

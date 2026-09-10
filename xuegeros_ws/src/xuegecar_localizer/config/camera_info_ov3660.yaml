@@ -1,0 +1,10 @@
+# leap_cam (OV3660, SVGA 800x600) Kalibr cam0 标定内参（2026-09 用户提供）
+# 结构保持 Kalibr 原样；semantic_localizer 会解析 cam0 嵌套格式。
+cam0:
+  cam_overlaps: []
+  camera_model: pinhole
+  distortion_coeffs: [-0.081924089139713, 0.03482248793699489, -8.019296568756577e-05, 0.0008824770554369629]
+  distortion_model: radtan
+  intrinsics: [456.2779769888749, 454.59250678260713, 403.85938756963463, 309.55885730516604]
+  resolution: [800, 600]
+  rostopic: /camera/image_raw

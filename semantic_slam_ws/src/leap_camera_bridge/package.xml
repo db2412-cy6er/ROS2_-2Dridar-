@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>leap_camera_bridge</name>
+  <version>0.1.0</version>
+  <description>
+    HTTP MJPEG -> ROS2 sensor_msgs/Image bridge for the leap camera board.
+    Reads per-part headers X-Frame-Id / X-Capture-Timestamp-Us / X-Capture-Ros-Time-Ns
+    added by the P0 time-sync firmware and stamps /camera/image_raw accordingly.
+  </description>
+  <maintainer email="chuyun@example.com">chuyun</maintainer>
+  <license>MIT</license>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_srvs</depend>
+
+  <exec_depend>python3-requests</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

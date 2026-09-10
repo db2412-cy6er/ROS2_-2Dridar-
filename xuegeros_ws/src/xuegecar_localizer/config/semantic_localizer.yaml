@@ -1,0 +1,39 @@
+semantic_localizer:
+  ros__parameters:
+
+    # 输入
+    detections_topic: "/semantic/detections"
+    camera_info_topic: "/camera/camera_info"
+
+    # camera_info 来源: file(自持发布, 默认) / topic(订阅上游, 如 leap_camera_bridge)
+    camera_info_source: "file"
+    camera_info_file: "/home/chuyun/xuegeros_ws/src/xuegecar_localizer/config/camera_info_ov3660.yaml"
+    camera_frame_id: "camera_link"
+
+    # 输出
+    objects_topic: "/semantic/objects_localized"
+    markers_topic: "/semantic/localization_markers"
+    publish_markers: true
+
+    # 坐标系
+    output_frame: "map"
+    ground_frame: "base_footprint"
+    ground_z: 0.0
+    # 语义地面在 map 系下的报告高度（z=0=地面，见 P3 报告 z 基准小节）
+    output_ground_z: 0.0
+
+    # 相机安装外参（相对 base_footprint，光心；实测：离地 0.12m、底盘中心线前 0.06m、下俯 10deg）
+    camera_mount_x: 0.06
+    camera_mount_y: 0.0
+    camera_mount_z: 0.12
+    camera_yaw_deg: 0.0
+    camera_pitch_down_deg: 10.0
+    camera_roll_deg: 0.0
+
+    # 畸变校正（Kalibr radtan k1,k2,p1,p2）
+    use_distortion: true
+    # 图像分辨率与标定分辨率不一致时，按比例缩放 fx/fy/cx/cy（必须开启：
+    # 否则推流分辨率一变，正前方的目标会被算到侧面去）
+    auto_scale_intrinsics: true
+
+    tf_timeout_s: 0.1

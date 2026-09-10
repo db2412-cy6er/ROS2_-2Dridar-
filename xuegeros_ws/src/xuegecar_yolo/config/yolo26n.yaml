@@ -1,0 +1,25 @@
+yolo_detector:
+  ros__parameters:
+
+    model_path: "/home/chuyun/xuegeros_ws/models/yolo26n.pt"
+
+    model_label: "yolo26n"
+
+    image_topic: "/camera/image_raw"
+
+    detections_topic: "/semantic/detections"
+
+    annotated_topic: "/semantic/image_annotated"
+
+    confidence_threshold: 0.30
+
+    iou_threshold: 0.45
+
+    image_size: 640
+
+    device: "cpu"
+
+    infer_every_n_frames: 1
+
+    target_classes:
+      - "bottle"

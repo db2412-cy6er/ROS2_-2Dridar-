@@ -1,0 +1,59 @@
+llm_navigation_node:
+  ros__parameters:
+
+    # ---------------------------------------------------------------- 接口
+    dynamic_map_topic: "/semantic/dynamic_map"   # P4 输出（只读，不修改 P4）
+    query_topic: "/llm/query"                    # 用户自然语言输入
+    response_topic: "/llm/response"              # 中文回答
+    status_topic: "/llm/task_status"             # 状态机（JSON）
+    navigate_action: "/navigate_to_pose"         # Nav2 执行器
+    compute_path_action: "/compute_path_to_pose"  # Nav2 规划器（出发前审计）
+    global_costmap_service: "/global_costmap/get_costmap"
+    map_frame: "map"
+    robot_frame: "base_footprint"
+
+    # ------------------------------------------------------------ DeepSeek
+    api_base_url: "https://api.deepseek.com"
+    # 注意：launch 参数 api_model 会覆盖这里的值
+    # （默认与 launch 的默认值一致；启动时会用 GET /models 现场核对）
+    api_model: "deepseek-v4-pro"
+    # 按顺序尝试；只认服务端真正提供的名字
+    api_models_fallback: "deepseek-v4-pro,deepseek-v4-flash,deepseek-flash"
+    api_key_env: "DEEPSEEK_API_KEY"
+    api_key_file: ""              # 可选兜底路径，例如 ~/.config/xuegecar/deepseek.key
+    api_timeout_sec: 15.0
+    query_deadline_sec: 40.0
+    enable_json_mode: true        # response_format={"type":"json_object"}
+    disable_thinking: true        # thinking={"type":"disabled"}（默认是开启的）
+
+    # ---------------------------------------------------------------- 地图
+    map_timeout_sec: 5.0
+
+    # ------------------------------------------------------------ 目标选择
+    # 停车点与目标中心的距离。0.30m = 表面间隙约 0.14m（车体半径0.12+瓶半径0.04）
+    # 不变式（必须成立，否则贴到 5cm 以下）：
+    #   min_goal_offset_m - xy_goal_tolerance(0.05, xuegebot_p5.yaml)
+    #     - robot_physical_radius_m - assumed_object_radius_m
+    #     = 0.28 - 0.05 - 0.12 - 0.04 = 0.07 m >= min_surface_clearance_m(0.05)
+    goal_offset_m: 0.30
+    min_goal_offset_m: 0.28       # 最小停车距离（目标很近时也保证安全）
+    min_approach_distance_m: 0.30  # 比这更近就不再移动，直接回答"已在旁边"
+                                   # （旧值 0.75 会让小车在 75cm 外一步不走）
+    allow_relation_fallback: true  # 左/右目标不可达时自动降级为"旁边"
+    auto_execute_navigation: true  # false = 只回答，不控制小车（干跑）
+
+    # ------------------------------------------------------ 避障与安全阈值
+    # 表面间隙 = 中心距 - 车体外接半径 - 目标半径，要求 >= min_surface_clearance_m
+    min_surface_clearance_m: 0.05   # 5 cm（用户要求）
+    robot_physical_radius_m: 0.12   # URDF：底盘 0.10 + 轮缘外扩到 0.12
+    assumed_object_radius_m: 0.04   # 瓶子半径假设值（P4 不输出尺寸）
+    enable_path_precheck: true      # 先 ComputePathToPose，再审计
+    path_check_use_costmap: true    # 用 /global_costmap/get_costmap 查致命代价
+    path_max_cell_cost: 253         # >=253 视为致命/内切代价
+    clearance_warn_surface_m: 0.05  # 运行时低于 5 cm 告警
+    safety_stop_surface_m: 0.00     # 运行时贴到 0 cm（接触临界）→ 取消任务
+    watchdog_rate: 10.0
+    nav_timeout_sec: 120.0
+
+    # ---------------------------------------------------------------- 其它
+    single_flight: true           # 同一时刻只处理一条指令

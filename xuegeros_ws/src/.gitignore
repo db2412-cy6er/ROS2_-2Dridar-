@@ -1,0 +1,41 @@
+# Build and Release Folders
+bin-debug/
+bin-release/
+[Oo]bj/
+[Bb]in/
+
+# Other files and folders
+.settings/
+
+# Executables
+*.swf
+*.air
+*.ipa
+*.apk
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
+
+# ---------------------------------------------------------------- Python / ROS2
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ---------------------------------------------------------------- 建图 / 导航产物
+# pbstream 是 cartographer 的底层建图产物（单个 13MB+），只保留导出后的 pgm/yaml
+*.pbstream
+*.pbf
+# RViz / Qt 本地配置
+*.rviz.bak
+
+# ---------------------------------------------------------------- 编辑器
+.vscode/
+.idea/
+*.swp
+*~
+

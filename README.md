@@ -6,7 +6,7 @@
 
 | 目录 | 内容 |
 |---|---|
-| `xuegeros_ws/` | **整车 ROS 2 (Humble) 工作区**：17 个包（底盘/相机/雷达/检测/定位/语义地图/自然语言导航/建图/上位机），另含 `maps/`（建图产物）与 `models/`（YOLO 权重） |
+| `xuegeros_ws/` | **整车 ROS 2 (Humble) 工作区**：17 个包（底盘/相机/雷达/检测/定位/语义地图/自然语言导航/建图/上位机），另含 `maps/`（建图产物）与 `models/`（YOLO 26n权重） |
 | `leap_demo/` | **固件与文档**：`leap_cam/`（ESP32-S3 OV3660 图传固件）、`leap_ros/leap_low_v1/`（ESP32-S3 micro-ROS 底盘驱动固件）、`report/`（阶段性技术报告） |
 | `semantic_slam_ws/` | 早期 ROS 2 工作区（`src/leap_camera_bridge`，相机桥接包） |
 | `YDLidar-SDK/` | YDLidar 官方 SDK（C++ / Python，含 examples 与 doc） |
